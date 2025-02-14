@@ -3,5 +3,9 @@
 .env.local
 
 # Ignore my test files
-.test
+test/
+.movies.test.test
+.user.test.test
+
+
 

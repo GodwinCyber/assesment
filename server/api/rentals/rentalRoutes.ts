@@ -10,7 +10,7 @@ router.post("/", async (req, res) => {
 
     try {
         const result = await pool.query(
-            "INSERT INTO rentals (id, user_id, movie_id, rented_at, due_date) VALUES ($1, $2, $3, NOW(), $4) RETURNING *",
+            "INSERT INTO rentals (id, user_id, movie_id, rented_at, due_date, returned_at) VALUES ($1, $2, $3, NOW(), $4, NULL) RETURNING *",
             [uuidv4(), user_id, movie_id, due_date]
         );
         res.status(201).json(result.rows[0]);
@@ -29,15 +29,18 @@ router.put("/:id", async (req: any, res: any) => {
             "UPDATE rentals SET returned_at = NOW() WHERE id = $1 RETURNING *",
             [id]
         );
+
         if (result.rows.length === 0) {
             return res.status(404).json({ message: "Rental not found" });
         }
+
         res.status(200).json(result.rows[0]);
     } catch (error: any) {
         console.error("Error returning movie:", error); // Log the full error
         res.status(500).json({ message: "Error returning movie: " + error.message });
     }
 });
+
 
 // Get all rentals with pagination
 router.get("/", async (req, res) => {
@@ -53,7 +56,7 @@ router.get("/", async (req, res) => {
         );
         res.json(result.rows);
     } catch (error: any) {
-        console.error("Error fetching rentals:", error); // Log the full error
+        console.error("Error fetching rentals:", error); 
         res.status(500).json({ message: "Error fetching rentals: " + error.message });
     }
 });

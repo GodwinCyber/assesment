@@ -6,12 +6,12 @@ const router = express.Router();
 
 // Create a new movie
 router.post("/", async (req, res) => {
-    const { title, genre, release_year } = req.body;
+    const { name, genre } = req.body;
 
     try {
         const result = await pool.query(
-            "INSERT INTO movies (id, title, genre, release_year) VALUES ($1, $2, $3, $4) RETURNING *",
-            [uuidv4(), title, genre, release_year]
+            "INSERT INTO movies (id, name, genre) VALUES ($1, $2, $3) RETURNING *",
+            [uuidv4(), name, genre]
         );
         res.status(201).json(result.rows[0]);
     } catch (error: any) {
@@ -56,12 +56,12 @@ router.get("/", async (req, res) => {
 // Update a movie by ID
 router.put("/:id", async (req: any, res: any) => {
     const { id } = req.params;
-    const { title, genre, release_year } = req.body;
+    const { name, genre } = req.body;
 
     try {
         const result = await pool.query(
-            "UPDATE movies SET title = $1, genre = $2, release_year = $3 WHERE id = $4 RETURNING *",
-            [title, genre, release_year, id]
+            "UPDATE movies SET name = $1, genre = $2 WHERE id = $3 RETURNING *",
+            [name, genre, id]
         );
 
         if (result.rows.length === 0) {
@@ -89,3 +89,4 @@ router.delete("/:id", async (req: any, res: any) => {
 });
 
 export default router;
+

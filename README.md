@@ -1,4 +1,4 @@
-//Step to step guid to set up and start containerized ProsgreSQL database using docker
+### Step to step guid to set up and start containerized ProsgreSQL database using docker
 
 ## creat a docker file docker-compose.yml;
     this include pull the latest ProgreSQL.

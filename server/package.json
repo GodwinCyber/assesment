@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-  "start": "ts-node server.ts",
-  "test": "jest --config jest.config.js"
+    "start": "ts-node server.ts",
+    "test": "jest --config jest.config.js"
   },
   "keywords": [],
   "author": "",

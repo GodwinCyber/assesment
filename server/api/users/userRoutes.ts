@@ -1,17 +1,14 @@
 import express from "express";
 import { v4 as uuidv4 } from "uuid";
-import { Pool } from "pg";
-import dotenv from "dotenv";
+import pool from "../../config/db";
 
-dotenv.config();
-
-const pool = new Pool({
-    user: "admin",
-    host: "localhost",
-    database: "assesment_db",
-    password: "secret",
-    port: 5432,
-});
+// const pool = new Pool({
+//     user: "admin",
+//     host: "localhost",
+//     database: "assesment_db",
+//     password: "secret",
+//     port: 5432,
+// });
 
 const router = express.Router();
 

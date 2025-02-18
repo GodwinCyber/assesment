@@ -23,7 +23,7 @@ describe("Movies API Endpoints", () => {
         const response = await request(app)
             .post("/api/movies")
             .send({ name: "Bond", genre: "Sci-Fi" });
-
+            
         expect(response.status).toBe(201);
         expect(response.body).toEqual(mockMovie);
     });

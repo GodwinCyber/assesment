@@ -7,9 +7,18 @@ const app = express();
 app.use(express.json());
 app.use("/api/rentals", rentalRoutes);
 
-jest.mock("../../config/db", () => ({
+jest.mock("../config/db", () => ({
     query: jest.fn(),
 }));
+
+// mock cconsole.error to supress error logs
+beforeAll(() => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+});
+
+afterAll(() => {
+    jest.restoreAllMocks();
+});
 
 describe("Rental API Endpoint", () => {
     afterEach(() => {
@@ -50,7 +59,7 @@ describe("Rental API Endpoint", () => {
         .send({ user_id: "1", movie_id: "1", due_date: new Date().toISOString() });
 
     expect(response.status).toBe(500);
-    expect(response.body.message).toContain({ message: "Error renting movie" });
+    expect(response.body.message).toContain("Error renting movie");
     });
 
     // test for returning a movie
@@ -74,7 +83,7 @@ describe("Rental API Endpoint", () => {
             .send();
 
         expect(response.status).toBe(404);
-        expect(response.body.message).toBe({ message: "Rental not found" });
+        expect(response.body).toEqual({ message: "Rental not found" });
     });
 
     // failed to return a movie
@@ -86,7 +95,7 @@ describe("Rental API Endpoint", () => {
             .send();
 
         expect(response.status).toBe(500);
-        expect(response.body.message).toContain({ message: "Error returning movie" });
+        expect(response.body.message).toContain("Error returning movie");
     });
 
     // test for getting all rentals with pagination
@@ -110,7 +119,7 @@ describe("Rental API Endpoint", () => {
             .query({ page: 1, limit: 10 });
 
         expect(response.status).toBe(500);
-        expect(response.body.message).toContain({ message: "Error fetching rentals" });
+        expect(response.body.message).toContain("Error fetching rentals");
     });
 });
 

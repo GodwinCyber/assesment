@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
         );
         res.status(201).json(result.rows[0]);
     } catch (error: any) {
-        console.error("Error renting movie:", error); // Log the full error
+        console.error("Error renting movie:", error);
         res.status(500).json({ message: "Error renting movie: " + error.message });
     }
 });
@@ -36,7 +36,7 @@ router.put("/:id", async (req: any, res: any) => {
 
         res.status(200).json(result.rows[0]);
     } catch (error: any) {
-        console.error("Error returning movie:", error); // Log the full error
+        console.error("Error returning movie:", error);
         res.status(500).json({ message: "Error returning movie: " + error.message });
     }
 });

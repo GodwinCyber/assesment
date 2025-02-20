@@ -23,4 +23,3 @@ CREATE TABLE rentals (
     returned_at TIMESTAMP,
     due_date TIMESTAMP NOT NULL
 );
-

@@ -1,5 +1,6 @@
 version: '3.8'
 
+# Define services
 services:
   db:
     image: postgres:latest
@@ -9,12 +10,14 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: secret
       POSTGRES_DB: assesment_db
+    # Expose port 5432 to host
     ports:
       - "5432:5432"
+    # Mount postgres_data volume
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+# Define volumes 
 volumes:
   postgres_data:
-
 

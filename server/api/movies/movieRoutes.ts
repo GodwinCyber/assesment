@@ -44,7 +44,7 @@ router.get("/", async (req, res) => {
 
     try {
         const result = await pool.query(
-            "SELECT * FROM movies WHERE title ILIKE $1 OR genre ILIKE $1 LIMIT $2 OFFSET $3",
+            "SELECT * FROM movies WHERE name ILIKE $1 OR genre ILIKE $1 LIMIT $2 OFFSET $3",
             [`%${search}%`, limitNumber, offset]
         );
         res.json(result.rows);
@@ -89,4 +89,3 @@ router.delete("/:id", async (req: any, res: any) => {
 });
 
 export default router;
-

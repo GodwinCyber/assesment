@@ -1,14 +1,15 @@
-import request from "supertest";
-import express from "express";
+import request from "supertest"; // simulate the http requests
+import express from "express"; // create the app instance
 import rentalRoutes from "../api/rentals/rentalRoutes";
 import pool from "../config/db";
 
-const app = express();
-app.use(express.json());
-app.use("/api/rentals", rentalRoutes);
+const app = express(); // create the app instance
+app.use(express.json()); // set up the middleware to parse JSON
+app.use("/api/rentals", rentalRoutes); // mount the route
 
+// mock the database connection by preventing the actual connection
 jest.mock("../config/db", () => ({
-    query: jest.fn(),
+    query: jest.fn(), // mock the query method
 }));
 
 // mock cconsole.error to supress error logs

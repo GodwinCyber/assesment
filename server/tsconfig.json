@@ -10,7 +10,7 @@
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true
     },
-    "include": ["**/*.ts", "file.js"],
+    "include": ["**/*.ts", "file.js", "test.js"],
     "exclude": ["node_modules"]
   }
   

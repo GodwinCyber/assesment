@@ -3,19 +3,24 @@ import express from "express";
 import userRoutes from "../api/users/userRoutes";
 import pool from "../config/db";
 
-const app = express();
-app.use(express.json());
-app.use("/api/users", userRoutes);
 
+// creating route and temporary express app
+const app = express();
+app.use(express.json()); // setting up middleware to parse JSON
+app.use("/api/users", userRoutes); // mounting the user routes
+
+// mocking the pool.query method so that we don't actually make a database connection
 jest.mock("../config/db", () => ({
   query: jest.fn(),
 }));
 
+// testing the user routes
 describe("Users API Endpoints", () => {
     afterEach(() => {
-      jest.clearAllMocks();
+      jest.clearAllMocks(); // clear all mocks after each test
     });
 
+    // mock user data
     const mockUser = { id: "1", name: "John Doe", email: "john@example.com" };
     const updatedUser = { id: "1", name: "Jane Doe", email: "jane@example.com" };
 

@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
     }
 });
 
-// Return a movie
+// Return a movie by movie ID
 router.put("/:id", async (req: any, res: any) => {
     const { id } = req.params;
 
@@ -33,8 +33,8 @@ router.put("/:id", async (req: any, res: any) => {
         if (result.rows.length === 0) {
             return res.status(404).json({ message: "Rental not found" });
         }
-
         res.status(200).json(result.rows[0]);
+
     } catch (error: any) {
         console.error("Error returning movie:", error);
         res.status(500).json({ message: "Error returning movie: " + error.message });
@@ -45,6 +45,7 @@ router.put("/:id", async (req: any, res: any) => {
 // Get all rentals with pagination
 router.get("/", async (req, res) => {
     const { page = 1, limit = 10 } = req.query;
+
     const pageNumber = Number(page);
     const limitNumber = Number(limit);
     const offset = (pageNumber - 1) * limitNumber;
